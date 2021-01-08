@@ -7,6 +7,10 @@ Converts HTTP URL query string parameters to MongoDB criteria, consisting of fil
 
 This can be used to handle REST API queries, or even regular GETs returning HTML pages that deal with a filtered and paginated display of the contents of a collection as a table.
 
+*** Support Projection
+/api/v1/employees?name=John&age__lte=45&category__in=A,B&__limit=10&__sort=-age&__project={"name":0,"age":1}
+
+
 ## Quick Example
 A request of the form:
 ```
