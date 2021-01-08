@@ -230,7 +230,7 @@ module.exports = function qpm(opts) {
 		/*
 		 * Other non-filter parameters processing: sort, skip and limit
 		 */
-		var limit = 0, skip = 0, offset = 0;
+		var limit = 0, skip = 0, offset = 0, project = {};
 		if (params.__limit) {
 			limit = parseInt(params.__limit);
 		}
@@ -241,6 +241,14 @@ module.exports = function qpm(opts) {
 		if (params.__skip) {
 			offset = parseInt(params.__skip);
 			skip = offset;
+		}
+		if (params.__project) {
+			try {
+				project = JSON.parse(params.__project)
+			}
+			catch(e){
+				errors.push('Invalid JSON in __project query param')
+			}
 		}
 
 		var sort = {};
@@ -263,7 +271,7 @@ module.exports = function qpm(opts) {
 		if (errors.length > 0)
 			throw errors;
 
-		return {filter: filter, sort: sort, limit: limit, offset: offset, skip: skip};
+		return {filter: filter, sort: sort, limit: limit, offset: offset, skip: skip,project:project};
 	}
 
 }
